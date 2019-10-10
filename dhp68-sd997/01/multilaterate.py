@@ -7,7 +7,7 @@ def multilaterate(distances):
 
 if __name__ == "__main__":
 
-    # Retrive file name for input data
+    # Retrieve file name for input data
     if len(sys.argv) == 1:
         print("Please enter data file name.")
         exit()

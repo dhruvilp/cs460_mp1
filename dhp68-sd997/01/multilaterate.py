@@ -1,8 +1,28 @@
 import sys
+from scipy.optimize import fsolve
+import math
+import numpy as np
 
 
 def multilaterate(distances):
-    return [0., 0., 0., 0.]
+    (x1, y1, z1, d1) = distances[0]
+    (x2, y2, z2, d2) = distances[1]
+    (x3, y3, z3, d3) = distances[2]
+    (x4, y4, z4, d4) = distances[3]
+
+    vector = [
+        d1 ** 2 - d2 ** 2 - x1 ** 2 - y1 ** 2 - z1 ** 2 + x2 ** 2 + y2 ** 2 + z2 ** 2,
+        d2 ** 2 - d3 ** 2 - x2 ** 2 - y2 ** 2 - z2 ** 2 + x3 ** 2 + y3 ** 2 + z3 ** 2,
+        d3 ** 2 - d4 ** 2 - x3 ** 2 - y3 ** 2 - z3 ** 2 + x4 ** 2 + y4 ** 2 + z4 ** 2,
+    ]
+
+    matrix = [
+        [-2 * x1 + 2 * x2, -2 * y1 + 2 * y2, -2 * z1 + 2 * z2],
+        [-2 * x2 + 2 * x3, -2 * y2 + 2 * y3, -2 * z2 + 2 * z3],
+        [-2 * x3 + 2 * x4, -2 * y3 + 2 * y4, -2 * z3 + 2 * z4]
+    ]
+
+    return np.linalg.solve(matrix, vector)
 
 
 if __name__ == "__main__":
